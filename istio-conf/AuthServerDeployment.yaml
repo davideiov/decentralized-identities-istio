@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: authserver
+    version: v1
+  name: authserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authserver
+      version: v1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: authserver
+        version: v1
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: davideiov/firefly-authserver
+        imagePullPolicy: IfNotPresent
+        name: firefly-authserver
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: authserver
+  name: authserver
+spec:
+  ports:
+  - name: 8080-8080
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: authserver
+  type: ClusterIP
+status:
+  loadBalancer: {}

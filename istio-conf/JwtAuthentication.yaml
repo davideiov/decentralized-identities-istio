@@ -1,0 +1,13 @@
+apiVersion: security.istio.io/v1
+kind: RequestAuthentication
+metadata:
+  name: "JWT-Authentication"
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      app: istio-ingressgateway
+  jwtRules:
+  - issuer: "auth@istio"
+    jwks: |
+      {"keys": [{"kty": "RSA", "n": "gtTcryolhPloMfn1Pp2fZcE0P4N4nbl8flfi5_bzTh6G-sg_NaOFAHXuS_ViDVxyUe3QmpeTdd2N5CO8eLiMnKT-NgtYHETnJjKDR4M49XEYUfj1nCo0eS15eoICAsZPyGgaYwxjglU2a_bIBrQO9l5NKH_qsiwr02KcbI1Xe346x4GClBAVhL-5xYZR9s7Qx6G2xJ4jHtAN1lJ08a46AzB8OZ_bk2QoRCkz8bVA06D4jx90-trcLa2xC7FF26BeHM_v0sIeOe4lvT67X-R6zh-JkI1kmgzwogxACQ6Jzgppf5HjEabUCCc27lHxrf8V6d2nUcVsqlkckrKjLgVJ6Q", "e": "AQAB", "alg": "RS256", "kid": "istio", "use": "sig"}]}
